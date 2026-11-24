@@ -32,10 +32,10 @@ export async function getWeather(city) {
 export function toCard(data) {
   return {
     city: data.city,
-    country: '', // at the top level, like city
-    temperature: null, // inside data.current, in °C
-    humidity: null, // inside data.current, in %
-    wind: null, // inside data.current, in km/h
-    weather: null, // describeWeather( ...the weather code... )
+    country: data.country,
+    temperature: data.current.temperature_2m,
+    humidity: data.current.relative_humidity_2m,
+    wind: data.current.wind_speed_10m,
+    weather: describeWeather(data.current.weather_code),
   };
 }

@@ -29,7 +29,7 @@ export default async function handler(req, res) {
     //   current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code
     // Hint: look at geoUrl above, it is built the same way.
     // ⚠️ Use backticks ` ` (not quotes ' '), otherwise ${...} is not replaced by the value.
-    const weatherUrl = '';
+    const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${place.latitude}&longitude=${place.longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code`;
 
     if (!weatherUrl) {
       return res.status(501).json({ error: 'TODO 1 is not done yet: build the forecast URL in api/weather.js' });
