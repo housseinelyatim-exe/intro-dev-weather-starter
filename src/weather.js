@@ -1,6 +1,6 @@
 // Frontend code: this runs in the browser.
-// It talks to OUR backend (/api/weather), never directly to WeatherAPI,
-// so the browser never sees the API key.
+// It talks to OUR backend (/api/weather), never directly to Open-Meteo.
+import { describeWeather } from './weatherCodes.js';
 
 export async function getWeather(city) {
   const response = await fetch(`/api/weather?city=${encodeURIComponent(city)}`);
@@ -13,22 +13,29 @@ export async function getWeather(city) {
   return toCard(data);
 }
 
-// TODO 2: pick the right fields from the WeatherAPI JSON.
+// TODO 2: pick the right fields from the JSON our backend sends.
 //
-// The JSON looks like this (simplified):
+// The JSON looks like this:
 // {
-//   "location": { "name": "Tunis", "country": "Tunisia", ... },
-//   "current":  { "temp_c": 19.3, "humidity": 64,
-//                 "condition": { "text": "Partly cloudy", "icon": "//cdn.weatherapi.com/..." }, ... }
+//   "city": "Tunis",
+//   "country": "Tunisia",
+//   "current": {
+//     "temperature_2m": 20.2,
+//     "relative_humidity_2m": 51,
+//     "wind_speed_10m": 5.4,
+//     "weather_code": 1
+//   }
 // }
 //
 // The first field is done for you. Fill in the others the same way.
+// For "weather", give describeWeather() the weather code: it returns { text, emoji }.
 export function toCard(data) {
   return {
-    city: data.location.name,
-    country: '', // inside data.location
+    city: data.city,
+    country: '', // at the top level, like city
     temperature: null, // inside data.current, in °C
-    condition: '', // inside data.current.condition
-    icon: '', // inside data.current.condition. It starts with "//": add "https:" in front.
+    humidity: null, // inside data.current, in %
+    wind: null, // inside data.current, in km/h
+    weather: null, // describeWeather( ...the weather code... )
   };
 }

@@ -1,5 +1,6 @@
 import './style.css';
 import { getWeather } from './weather.js';
+import { loadCarousel } from './photos.js';
 
 const DEFAULT_CITY = 'Tunis';
 
@@ -15,26 +16,19 @@ function showMessage(text, isError = false) {
 }
 
 function render(weather) {
-  if (weather.temperature === null || !weather.condition) {
+  if (weather.temperature === null || !weather.weather) {
     card.hidden = true;
-    showMessage('Almost there! The API works, but TODO 2 is not done yet: open src/weather.js.', true);
+    showMessage('Almost there! The backend works, but TODO 2 is not done yet: open src/weather.js.', true);
     return;
   }
 
   card.querySelector('.city').textContent = weather.city;
   card.querySelector('.country').textContent = weather.country;
+  card.querySelector('.emoji').textContent = weather.weather.emoji;
   card.querySelector('.temperature').textContent = `${Math.round(weather.temperature)}°C`;
-  card.querySelector('.condition').textContent = weather.condition;
-
-  const slot = card.querySelector('.icon-slot');
-  slot.replaceChildren();
-  if (weather.icon) {
-    const icon = document.createElement('img');
-    icon.className = 'icon';
-    icon.src = weather.icon;
-    icon.alt = weather.condition;
-    slot.append(icon);
-  }
+  card.querySelector('.condition').textContent = weather.weather.text;
+  card.querySelector('.humidity').textContent = weather.humidity ?? '–';
+  card.querySelector('.wind').textContent = weather.wind ?? '–';
 
   card.hidden = false;
   showMessage('');
@@ -58,3 +52,4 @@ form.addEventListener('submit', (event) => {
 
 input.value = DEFAULT_CITY;
 search(DEFAULT_CITY);
+loadCarousel(document.querySelector('#carousel'));

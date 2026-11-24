@@ -20,10 +20,24 @@
     <article id="card" hidden>
       <h2 class="city"></h2>
       <p class="country"></p>
-      <div class="icon-slot"></div>
+      <p class="emoji" aria-hidden="true"></p>
       <p class="temperature"></p>
       <p class="condition"></p>
+      <dl class="details">
+        <div><dt>Humidity</dt><dd><span class="humidity"></span> %</dd></div>
+        <div><dt>Wind</dt><dd><span class="wind"></span> km/h</dd></div>
+      </dl>
     </article>
+
+    <section id="carousel" aria-label="Photo carousel">
+      <h2>From my Cloudinary</h2>
+      <p class="carousel-status">Loading your photos…</p>
+      <div class="carousel-frame">
+        <button class="prev" type="button" aria-label="Previous photo" hidden>‹</button>
+        <ul class="track"></ul>
+        <button class="next" type="button" aria-label="Next photo" hidden>›</button>
+      </div>
+    </section>
 
     <footer>Built at Software Dev 101 · IEEE ENSI CS SBC</footer>
 
