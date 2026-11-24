@@ -9,8 +9,13 @@ function apiDevServer() {
     name: 'api-dev-server',
     configureServer(server) {
       // Load .env (all variables, not only VITE_ ones) for the server-side code.
-      // Vite restarts itself when .env changes, so edits are picked up.
-      Object.assign(process.env, loadEnv(server.config.mode, process.cwd(), ''));
+      // Vite restarts itself when .env changes. Before reloading, put process.env back the way
+      // it was at startup, so the NEW .env values win over the ones loaded last time.
+      const original = (globalThis.__apiDevOriginalEnv ??= { ...process.env });
+      for (const key of Object.keys(process.env)) {
+        if (!(key in original)) delete process.env[key];
+      }
+      Object.assign(process.env, original, loadEnv(server.config.mode, process.cwd(), ''));
 
       server.middlewares.use(async (req, res, next) => {
         const url = new URL(req.url, 'http://localhost');
