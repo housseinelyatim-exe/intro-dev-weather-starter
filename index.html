@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Weather Dashboard</title>
+  </head>
+  <body>
+    <h1>Weather Dashboard</h1>
+    <p class="subtitle">Type a city, get the weather. Live.</p>
+
+    <form id="search">
+      <input id="city" type="text" placeholder="e.g. Tunis" aria-label="City" autocomplete="off" />
+      <button type="submit">Search</button>
+    </form>
+
+    <p id="message" class="message" hidden></p>
+
+    <article id="card" hidden>
+      <h2 class="city"></h2>
+      <p class="country"></p>
+      <div class="icon-slot"></div>
+      <p class="temperature"></p>
+      <p class="condition"></p>
+    </article>
+
+    <footer>Built at Software Dev 101 · IEEE ENSI CS SBC</footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
