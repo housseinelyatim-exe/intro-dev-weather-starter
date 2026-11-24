@@ -28,6 +28,7 @@ export default async function handler(req, res) {
     // Use place.latitude and place.longitude, and ask for these current values:
     //   current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code
     // Hint: look at geoUrl above, it is built the same way.
+    // ⚠️ Use backticks ` ` (not quotes ' '), otherwise ${...} is not replaced by the value.
     const weatherUrl = '';
 
     if (!weatherUrl) {
@@ -48,6 +49,8 @@ export default async function handler(req, res) {
       current: weather.current,
     });
   } catch {
-    return res.status(502).json({ error: 'Could not reach Open-Meteo. Check your internet connection.' });
+    return res.status(502).json({
+      error: 'Could not reach Open-Meteo. Check the URL in TODO 1 (backticks ` `, not quotes) and your internet connection.',
+    });
   }
 }
